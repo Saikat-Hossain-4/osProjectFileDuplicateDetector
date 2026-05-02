@@ -30,7 +30,7 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
   const [scanProgress, setScanProgress] = useState(0);
   
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const username = user.email?.split('@')[0] || 'User';
+  const username = user.name || user.email?.split('@')[0] || 'User';
 
   useEffect(() => {
     fetchRecentFiles();

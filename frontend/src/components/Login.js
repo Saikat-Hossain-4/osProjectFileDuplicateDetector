@@ -6,6 +6,7 @@ import './Login.css';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,6 +18,10 @@ const Login = () => {
     setError('');
 
     // Basic validation
+    if (!isLogin && !name.trim()) {
+      setError('Please enter your full name');
+      return;
+    }
     if (!email.includes('@')) {
       setError('Please enter a valid email address');
       return;
@@ -30,7 +35,7 @@ const Login = () => {
     try {
       const { data } = isLogin 
         ? await authAPI.login({ email, password })
-        : await authAPI.register({ email, password });
+        : await authAPI.register({ name, email, password });
       
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
@@ -96,6 +101,23 @@ const Login = () => {
           initial="hidden"
           animate="show"
         >
+          {!isLogin && (
+            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1 } }}>
+              <div className="input-wrapper">
+                <span className="input-icon">👤</span>
+                <motion.input 
+                  type="text" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Full Name"
+                  required={!isLogin}
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                />
+              </div>
+            </motion.div>
+          )}
+
           <motion.div variants={{ hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1 } }}>
             <div className="input-wrapper">
               <span className="input-icon">✉️</span>

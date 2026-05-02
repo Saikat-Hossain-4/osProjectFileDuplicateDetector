@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!email || !password) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
@@ -23,6 +23,7 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     user = new User({
+      name,
       email,
       password: hashedPassword
     });
@@ -37,6 +38,7 @@ exports.register = async (req, res) => {
       token,
       user: {
         id: user._id,
+        name: user.name,
         email: user.email
       }
     });
@@ -72,6 +74,7 @@ exports.login = async (req, res) => {
       token,
       user: {
         id: user._id,
+        name: user.name,
         email: user.email
       }
     });

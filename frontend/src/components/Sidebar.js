@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Folder, Copy, Clock, UploadCloud, LogOut, ChevronUp } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Sidebar.css';
 
 const Sidebar = ({ activePage, setActivePage, onOpenUpload }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
   
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -53,7 +55,7 @@ const Sidebar = ({ activePage, setActivePage, onOpenUpload }) => {
         {isProfileOpen && (
           <div className="profile-dropdown">
             <div className="profile-email">{user.email}</div>
-            <button className="logout-btn" onClick={handleLogout}>
+            <button className="logout-btn" onClick={() => setIsLogoutModalOpen(true)}>
               <LogOut size={16} />
               <span>Logout</span>
             </button>
@@ -65,10 +67,10 @@ const Sidebar = ({ activePage, setActivePage, onOpenUpload }) => {
           onClick={() => setIsProfileOpen(!isProfileOpen)}
         >
           <div className="user-avatar">
-            {user.email ? user.email.charAt(0).toUpperCase() : 'U'}
+            {user.name ? user.name.charAt(0).toUpperCase() : user.email ? user.email.charAt(0).toUpperCase() : 'U'}
           </div>
           <div className="user-email">
-            {user.email?.split('@')[0]}
+            {user.name || user.email?.split('@')[0]}
           </div>
           <ChevronUp size={16} style={{ 
             transform: isProfileOpen ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -76,6 +78,36 @@ const Sidebar = ({ activePage, setActivePage, onOpenUpload }) => {
           }} />
         </div>
       </div>
+
+      <AnimatePresence>
+        {isLogoutModalOpen && (
+          <motion.div 
+            className="logout-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div 
+              className="logout-modal"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            >
+              <h3>Logout Confirmation</h3>
+              <p>Are you sure you want to logout?</p>
+              <div className="modal-actions">
+                <button className="modal-btn cancel" onClick={() => setIsLogoutModalOpen(false)}>
+                  Cancel
+                </button>
+                <button className="modal-btn confirm" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
