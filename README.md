@@ -1,4 +1,4 @@
-# 🚀 MERN File Manager
+# 🚀 Smart File Manager
 
 <div align="center">
 
