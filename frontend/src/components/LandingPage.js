@@ -1,6 +1,29 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion'; // ADDED: framer-motion import
 import './LandingPage.css';
+
+// ADDED: Animation Variants
+const fadeUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 }
+  }
+};
+
+const cardHover = {
+  hover: { 
+    y: -8,
+    scale: 1.02,
+    transition: { duration: 0.3, ease: "easeOut" }
+  }
+};
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -69,27 +92,58 @@ function LandingPage() {
 
   return (
     <div className="landing-page">
+      {/* ADDED: Background animated elements */}
+      <div className="bg-blobs">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
+      <div className="noise-overlay"></div>
+      <div className="grid-overlay"></div>
+
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">
+        <motion.div 
+          className="hero-content"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.h1 className="hero-title" variants={fadeUp}>
             Manage Your Files
-            <span className="gradient-text"> Smarter</span>
-          </h1>
-          <p className="hero-description">
+            <span className="gradient-text glow-text"> Smarter</span>
+            <div className="animated-underline"></div>
+          </motion.h1>
+          <motion.p className="hero-description" variants={fadeUp}>
             Experience the ultimate file management solution with advanced duplicate detection,
             smart organization, and seamless cloud storage. Perfect for professionals and teams.
-          </p>
-          <div className="hero-buttons">
-            <button className="btn-primary" onClick={handleGetStarted}>
+          </motion.p>
+          <motion.div className="hero-buttons" variants={fadeUp}>
+            <motion.button 
+              className="btn-primary" 
+              onClick={handleGetStarted}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(102, 126, 234, 0.5)" }}
+              whileTap={{ scale: 0.95 }}
+            >
               Get Started Free
-            </button>
-            <button className="btn-secondary" onClick={handleLogin}>
+            </motion.button>
+            <motion.button 
+              className="btn-secondary" 
+              onClick={handleLogin}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Login
-            </button>
-          </div>
-        </div>
-        <div className="hero-stats">
+            </motion.button>
+          </motion.div>
+        </motion.div>
+        
+        <motion.div 
+          className="hero-stats"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
           <div className="stat-item">
             <div className="stat-number">5000+</div>
             <div className="stat-label">Active Users</div>
@@ -102,62 +156,124 @@ function LandingPage() {
             <div className="stat-number">99.9%</div>
             <div className="stat-label">Uptime</div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Features Section */}
-      <section className="features-section">
+      <section className="features-section" id="features">
         <div className="container">
-          <h2 className="section-title">
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+          >
             Powerful Features for
-            <span className="gradient-text"> Modern File Management</span>
-          </h2>
-          <p className="section-subtitle">
+            <span className="gradient-text glow-text"> Modern File Management</span>
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             Everything you need to manage your files efficiently in one place
-          </p>
-          <div className="features-grid">
+          </motion.p>
+          
+          <motion.div 
+            className="features-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
             {features.map((feature, index) => (
-              <div key={index} className="feature-card fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="feature-icon">{feature.icon}</div>
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-description">{feature.description}</p>
-              </div>
+              <motion.div 
+                key={index} 
+                className="feature-card glass-card"
+                variants={fadeUp}
+                whileHover="hover"
+                custom={index}
+              >
+                <div className="feature-card-inner">
+                  <motion.div 
+                    className="feature-icon"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {feature.icon}
+                  </motion.div>
+                  <h3 className="feature-title">{feature.title}</h3>
+                  <p className="feature-description">{feature.description}</p>
+                </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="how-it-works">
+      <section className="how-it-works" id="how-it-works">
         <div className="container">
-          <h2 className="section-title">
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             How It
-            <span className="gradient-text"> Works</span>
-          </h2>
-          <p className="section-subtitle">
+            <span className="gradient-text glow-text"> Works</span>
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             Get started in three simple steps
-          </p>
+          </motion.p>
+          
           <div className="steps-container">
-            <div className="step">
-              <div className="step-number">1</div>
-              <div className="step-icon">📤</div>
-              <h3 className="step-title">Upload Your Files</h3>
-              <p className="step-description">Drag and drop or click to upload your files securely to the cloud</p>
-            </div>
-            <div className="step-arrow">→</div>
-            <div className="step">
-              <div className="step-number">2</div>
-              <div className="step-icon">🔍</div>
-              <h3 className="step-title">Automatic Scanning</h3>
-              <p className="step-description">Our system automatically scans and detects duplicate files</p>
-            </div>
-            <div className="step-arrow">→</div>
-            <div className="step">
-              <div className="step-number">3</div>
-              <div className="step-icon">🎯</div>
-              <h3 className="step-title">Manage Efficiently</h3>
-              <p className="step-description">Organize, search, and manage your files with powerful tools</p>
-            </div>
+            {[
+              { num: 1, icon: '📤', title: 'Upload Your Files', desc: 'Drag and drop or click to upload your files securely to the cloud' },
+              { num: 2, icon: '🔍', title: 'Automatic Scanning', desc: 'Our system automatically scans and detects duplicate files' },
+              { num: 3, icon: '🎯', title: 'Manage Efficiently', desc: 'Organize, search, and manage your files with powerful tools' }
+            ].map((step, idx) => (
+              <React.Fragment key={idx}>
+                <motion.div 
+                  className="step glass-card"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: idx * 0.2, type: "spring", stiffness: 100 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                >
+                  <div className="step-number gradient-badge">{step.num}</div>
+                  <motion.div 
+                    className="step-icon"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: idx * 0.2 }}
+                  >
+                    {step.icon}
+                  </motion.div>
+                  <h3 className="step-title">{step.title}</h3>
+                  <p className="step-description">{step.desc}</p>
+                </motion.div>
+                {idx < 2 && (
+                  <motion.div 
+                    className="step-arrow"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 0.5, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (idx + 0.5) * 0.2 }}
+                  >
+                    →
+                  </motion.div>
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </section>
@@ -165,42 +281,80 @@ function LandingPage() {
       {/* Benefits Section */}
       <section className="benefits-section">
         <div className="container">
-          <h2 className="section-title">
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             Why Choose
-            <span className="gradient-text"> Us</span>
-          </h2>
-          <p className="section-subtitle">
+            <span className="gradient-text glow-text"> Us</span>
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             Experience the difference with our premium file management solution
-          </p>
-          <div className="benefits-grid">
+          </motion.p>
+          
+          <motion.div 
+            className="benefits-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
             {benefits.map((benefit, index) => (
-              <div key={index} className="benefit-card">
-                <div className="benefit-icon">{benefit.icon}</div>
+              <motion.div 
+                key={index} 
+                className="benefit-card glass-card"
+                variants={fadeUp}
+                whileHover="hover"
+              >
+                <motion.div 
+                  className="benefit-icon"
+                  whileHover={{ scale: 1.2, rotate: 10 }}
+                >
+                  {benefit.icon}
+                </motion.div>
                 <h3 className="benefit-title">{benefit.title}</h3>
                 <p className="benefit-description">{benefit.description}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
-        <div className="cta-content">
+      <section className="cta-section parallax-bg">
+        <motion.div 
+          className="cta-content glass-card cta-glow-border"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="cta-title">
             Ready to Simplify Your File Management?
           </h2>
           <p className="cta-description">
             Join thousands of users who trust us with their files
           </p>
-          <button className="btn-primary cta-button" onClick={handleGetStarted}>
+          <motion.button 
+            className="btn-primary cta-button pulse-btn" 
+            onClick={handleGetStarted}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             Start Managing Files Now
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="footer footer-gradient-border">
         <div className="footer-content">
           <div className="footer-section">
             <h3 className="footer-logo">FileManager</h3>
@@ -211,30 +365,30 @@ function LandingPage() {
           <div className="footer-section">
             <h4>Product</h4>
             <ul>
-              <li><a href="#features">Features</a></li>
-              <li><a href="#how-it-works">How it Works</a></li>
-              <li><a href="#pricing">Pricing</a></li>
+              <li><a href="#features" className="hover-underline">Features</a></li>
+              <li><a href="#how-it-works" className="hover-underline">How it Works</a></li>
+              <li><a href="#pricing" className="hover-underline">Pricing</a></li>
             </ul>
           </div>
           <div className="footer-section">
             <h4>Company</h4>
             <ul>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#blog">Blog</a></li>
-              <li><a href="#careers">Careers</a></li>
+              <li><a href="#about" className="hover-underline">About Us</a></li>
+              <li><a href="#blog" className="hover-underline">Blog</a></li>
+              <li><a href="#careers" className="hover-underline">Careers</a></li>
             </ul>
           </div>
           <div className="footer-section">
             <h4>Support</h4>
             <ul>
-              <li><a href="#help">Help Center</a></li>
-              <li><a href="#contact">Contact Us</a></li>
-              <li><a href="#privacy">Privacy Policy</a></li>
+              <li><a href="#help" className="hover-underline">Help Center</a></li>
+              <li><a href="#contact" className="hover-underline">Contact Us</a></li>
+              <li><a href="#privacy" className="hover-underline">Privacy Policy</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2024 FileManager. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} FileManager. All rights reserved.</p>
         </div>
       </footer>
     </div>
