@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, UploadCloud, Copy, Folder, File, FileText, FileImage, Clock } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { fileAPI } from '../services/api';
 import FileViewer from './FileViewer';
 import './MainWorkspace.css';
@@ -24,6 +24,10 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
   const [recentFiles, setRecentFiles] = useState({ today: [], yesterday: [], lastWeek: [] });
   const [loading, setLoading] = useState(true);
   const [viewFile, setViewFile] = useState(null);
+  
+  // Scanning state
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanProgress, setScanProgress] = useState(0);
   
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const username = user.email?.split('@')[0] || 'User';
@@ -70,6 +74,30 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
       console.error('Error updating access time', error);
       setViewFile(file);
     }
+  };
+
+  const handleScanDuplicates = () => {
+    setIsScanning(true);
+    setScanProgress(0);
+    
+    // Simulate scan progress for premium UX
+    const duration = 2500; // 2.5 seconds
+    const interval = 40; // update every 40ms
+    const step = 100 / (duration / interval);
+    
+    const timer = setInterval(() => {
+      setScanProgress((prev) => {
+        if (prev + step >= 100) {
+          clearInterval(timer);
+          setTimeout(() => {
+            setIsScanning(false);
+            setActivePage('duplicate-files');
+          }, 400); // Brief pause at 100%
+          return 100;
+        }
+        return prev + step;
+      });
+    }, interval);
   };
 
   const renderFileIcon = (type) => {
@@ -120,9 +148,13 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className="scan-btn" onClick={() => setActivePage('duplicate-files')}>
+          <button 
+            className="scan-btn" 
+            onClick={handleScanDuplicates}
+            disabled={isScanning}
+          >
             <Copy size={20} />
-            Scan Duplicates
+            {isScanning ? 'Scanning...' : 'Scan Duplicates'}
           </button>
         </div>
       </div>
@@ -221,6 +253,50 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
       )}
 
       {viewFile && <FileViewer file={viewFile} onClose={() => setViewFile(null)} />}
+
+      {/* Scanning Overlay */}
+      <AnimatePresence>
+        {isScanning && (
+          <motion.div 
+            className="scan-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="scan-loader-container">
+              <svg className="scan-circle" width="160" height="160" viewBox="0 0 160 160">
+                <defs>
+                  <linearGradient id="scan-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#8b5cf6" />
+                    <stop offset="100%" stopColor="#ec4899" />
+                  </linearGradient>
+                </defs>
+                <circle 
+                  className="scan-circle-bg" 
+                  cx="80" cy="80" r="70" 
+                  strokeWidth="8" 
+                />
+                <motion.circle 
+                  className="scan-circle-progress" 
+                  cx="80" cy="80" r="70" 
+                  strokeWidth="8" 
+                  strokeDasharray={2 * Math.PI * 70}
+                  strokeDashoffset={2 * Math.PI * 70 * (1 - scanProgress / 100)}
+                  strokeLinecap="round"
+                  style={{ stroke: "url(#scan-gradient)" }}
+                />
+              </svg>
+              <div className="scan-percentage">
+                {Math.round(scanProgress)}%
+              </div>
+              <div className="scan-text">
+                {scanProgress < 50 ? 'Scanning files...' : 'Detecting duplicates...'}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
