@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Search, UploadCloud, Copy, Folder, File, FileText, FileImage, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { fileAPI } from '../services/api';
 import FileViewer from './FileViewer';
 import './MainWorkspace.css';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" } }
+};
 
 const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +80,13 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
   };
 
   const FileCard = ({ file }) => (
-    <div className="recent-file" onClick={() => handleOpenFile(file)}>
+    <motion.div 
+      className="recent-file" 
+      onClick={() => handleOpenFile(file)}
+      variants={itemVariants}
+      whileHover={{ y: -4, scale: 1.01 }}
+      whileTap={{ scale: 0.98 }}
+    >
       <div className="file-icon-wrapper">
         {renderFileIcon(file.fileType)}
       </div>
@@ -78,11 +98,16 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
           {(file.fileSize / (1024 * 1024)).toFixed(2)} MB
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   return (
-    <div className="main-workspace">
+    <motion.div 
+      className="main-workspace"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="workspace-header">
         <h1>Hi, {username}</h1>
       </div>
@@ -113,9 +138,14 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
         <div className="recent-files">
           <h3>Search Results</h3>
           {searchResults.length > 0 ? (
-            <div className="recent-group">
+            <motion.div 
+              className="recent-group"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
               {searchResults.map(file => <FileCard key={file._id} file={file} />)}
-            </div>
+            </motion.div>
           ) : (
             <p style={{color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', padding: '20px'}}>
               No files found matching "{searchQuery}"
@@ -131,27 +161,42 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
               {recentFiles.today.length > 0 && (
                 <div className="recent-files">
                   <h3>Today</h3>
-                  <div className="recent-group">
+                  <motion.div 
+                    className="recent-group"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
                     {recentFiles.today.map(file => <FileCard key={file._id} file={file} />)}
-                  </div>
+                  </motion.div>
                 </div>
               )}
               
               {recentFiles.yesterday.length > 0 && (
                 <div className="recent-files">
                   <h3>Yesterday</h3>
-                  <div className="recent-group">
+                  <motion.div 
+                    className="recent-group"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
                     {recentFiles.yesterday.map(file => <FileCard key={file._id} file={file} />)}
-                  </div>
+                  </motion.div>
                 </div>
               )}
               
               {recentFiles.lastWeek.length > 0 && (
                 <div className="recent-files">
                   <h3>Last Week</h3>
-                  <div className="recent-group">
+                  <motion.div 
+                    className="recent-group"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
                     {recentFiles.lastWeek.map(file => <FileCard key={file._id} file={file} />)}
-                  </div>
+                  </motion.div>
                 </div>
               )}
 
@@ -176,7 +221,7 @@ const MainWorkspace = ({ onOpenUpload, refreshTrigger, setActivePage }) => {
       )}
 
       {viewFile && <FileViewer file={viewFile} onClose={() => setViewFile(null)} />}
-    </div>
+    </motion.div>
   );
 };
 

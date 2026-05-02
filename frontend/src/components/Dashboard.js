@@ -38,6 +38,15 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
+      {/* Animated Background Elements Matching Landing Page */}
+      <div className="bg-blobs">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
+      <div className="noise-overlay"></div>
+      <div className="grid-overlay"></div>
+
       <Sidebar 
         activePage={activePage} 
         setActivePage={setActivePage} 
