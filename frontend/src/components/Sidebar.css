@@ -289,3 +289,146 @@
   transform: translateY(-2px);
   box-shadow: 0 15px 30px rgba(245, 87, 108, 0.4);
 }
+
+/* Theme Toggle Styles */
+.theme-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.theme-switch {
+  width: 46px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-switch.dark {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.theme-switch.light {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.switch-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #1e293b;
+}
+
+.theme-switch.light .switch-slider {
+  transform: translateX(22px);
+}
+
+/* Light Theme Overrides for Sidebar */
+body.light-theme .sidebar {
+  background: rgba(255, 255, 255, 0.7);
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 18px 0 50px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .sidebar-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.01), transparent);
+}
+
+body.light-theme .nav-item {
+  color: #475569;
+}
+
+body.light-theme .nav-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .nav-item.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(168, 85, 247, 0.08));
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  color: #6d28d9;
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .sidebar-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+body.light-theme .user-profile:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .user-email {
+  color: #334155;
+}
+
+body.light-theme .profile-dropdown {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .profile-email {
+  color: #64748b;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .theme-toggle-container {
+  background: rgba(0, 0, 0, 0.02);
+  color: #475569;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Light Theme Overrides for Logout Modal */
+body.light-theme .logout-modal-overlay {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+body.light-theme .logout-modal {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgba(236, 72, 153, 0.05);
+}
+
+body.light-theme .logout-modal p {
+  color: #475569;
+}
+
+body.light-theme .modal-btn.cancel {
+  background: rgba(0, 0, 0, 0.03);
+  color: #334155;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .modal-btn.cancel:hover {
+  background: rgba(0, 0, 0, 0.06);
+}

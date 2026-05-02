@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Folder, Copy, Clock, UploadCloud, LogOut, ChevronUp } from 'lucide-react';
+import { LayoutDashboard, Folder, Copy, Clock, UploadCloud, LogOut, ChevronUp, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Sidebar.css';
 
 const Sidebar = ({ activePage, setActivePage, onOpenUpload }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const navigate = useNavigate();
   
   const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -55,6 +69,19 @@ const Sidebar = ({ activePage, setActivePage, onOpenUpload }) => {
         {isProfileOpen && (
           <div className="profile-dropdown">
             <div className="profile-email">{user.email}</div>
+            
+            <div className="theme-toggle-container">
+              <span>Theme</span>
+              <div 
+                className={`theme-switch ${theme}`} 
+                onClick={toggleTheme}
+              >
+                <div className="switch-slider">
+                  {theme === 'dark' ? <Moon size={14} /> : <Sun size={14} color="#f59e0b" />}
+                </div>
+              </div>
+            </div>
+
             <button className="logout-btn" onClick={() => setIsLogoutModalOpen(true)}>
               <LogOut size={16} />
               <span>Logout</span>

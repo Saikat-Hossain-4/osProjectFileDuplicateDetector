@@ -280,3 +280,76 @@
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
 }
+
+/* Light Theme Overrides for MainWorkspace */
+body.light-theme .main-workspace {
+  color: #0f172a;
+}
+
+body.light-theme .search-bar input {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #1e293b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .search-bar input:focus {
+  background: #ffffff;
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15), 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .search-bar input::placeholder {
+  color: #94a3b8;
+}
+
+body.light-theme .recent-files h3 {
+  color: #0f172a;
+}
+
+body.light-theme .recent-file {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .recent-file::before {
+  background: linear-gradient(135deg, rgba(0,0,0,0.05), rgba(0,0,0,0) 50%);
+}
+
+body.light-theme .recent-file:hover {
+  background: #ffffff;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 0 20px rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+body.light-theme .file-icon-wrapper {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .file-name {
+  color: #1e293b;
+}
+
+body.light-theme .file-size {
+  color: #64748b;
+}
+
+body.light-theme .scan-overlay {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+body.light-theme .scan-loader-container {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgba(139, 92, 246, 0.1);
+}
+
+body.light-theme .scan-circle-bg {
+  stroke: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .scan-text {
+  color: #475569;
+}
