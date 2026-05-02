@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Download, FileText } from 'lucide-react';
+import './FileViewer.css';
 
 const FileViewer = ({ file, onClose }) => {
   const isImage = file.fileType.includes('image');
@@ -107,33 +108,36 @@ const styles = {
   overlay: {
     position: 'fixed',
     top: 0,
-    left: 0,
+    left: '280px',
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.85)',
+    background: 'linear-gradient(135deg, rgba(7, 9, 20, 0.99) 0%, rgba(17, 19, 46, 0.99) 50%, rgba(9, 11, 26, 0.99) 100%)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 9999,
-    backdropFilter: 'blur(4px)'
+    zIndex: 5000,
+    backdropFilter: 'blur(24px)',
+    overflow: 'hidden',
+    padding: '24px'
   },
   modalContainer: {
-    width: '90vw',
-    height: '90vh',
-    backgroundColor: '#ffffff',
-    borderRadius: '12px',
+    width: 'min(100%, 1600px)',
+    height: '100%',
+    background: 'rgba(15, 12, 41, 0.96)',
+    borderRadius: '20px',
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+    border: '1px solid rgba(255, 255, 255, 0.14)',
+    boxShadow: '0 25px 70px rgba(0, 0, 0, 0.8)'
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '16px 24px',
-    backgroundColor: '#f8fafc',
-    borderBottom: '1px solid #e2e8f0'
+    padding: '18px 28px',
+    background: 'rgba(255, 255, 255, 0.06)',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
   },
   fileInfo: {
     display: 'flex',
@@ -143,11 +147,11 @@ const styles = {
     margin: 0,
     fontSize: '18px',
     fontWeight: '600',
-    color: '#2d3748'
+    color: '#ffffff'
   },
   fileMeta: {
     fontSize: '13px',
-    color: '#718096',
+    color: 'rgba(255, 255, 255, 0.7)',
     marginTop: '4px'
   },
   actions: {
@@ -160,34 +164,36 @@ const styles = {
     alignItems: 'center',
     gap: '8px',
     padding: '8px 16px',
-    backgroundColor: '#667eea',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: 'white',
-    borderRadius: '6px',
+    borderRadius: '10px',
     fontWeight: '500',
     border: 'none',
     cursor: 'pointer',
-    transition: 'background-color 0.2s'
+    transition: 'all 0.3s ease',
+    boxShadow: '0 0 20px rgba(102, 126, 234, 0.25)'
   },
   closeBtn: {
     background: 'none',
     border: 'none',
     cursor: 'pointer',
-    color: '#4a5568',
+    color: 'rgba(255, 255, 255, 0.75)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '4px',
     borderRadius: '50%',
-    transition: 'background-color 0.2s'
+    transition: 'all 0.3s ease'
   },
   viewerContent: {
     flex: 1,
-    backgroundColor: '#edf2f7',
+    background: 'rgba(255, 255, 255, 0.03)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    position: 'relative'
+    position: 'relative',
+    padding: '24px'
   },
   imageContainer: {
     width: '100%',
@@ -195,19 +201,21 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '20px'
+    padding: 0
   },
   image: {
     maxWidth: '100%',
     maxHeight: '100%',
     objectFit: 'contain',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+    borderRadius: '12px',
+    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.35)'
   },
   iframe: {
     width: '100%',
     height: '100%',
     border: 'none',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRadius: '12px'
   },
   unsupportedContainer: {
     display: 'flex',
@@ -215,23 +223,26 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '40px',
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+    background: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: '16px',
+    border: '1px solid rgba(255, 255, 255, 0.12)',
+    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.35)',
+    maxWidth: '500px'
   },
   largeDownloadBtn: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
     padding: '12px 24px',
-    backgroundColor: '#667eea',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: 'white',
-    borderRadius: '8px',
+    border: 'none',
+    borderRadius: '10px',
     fontWeight: '600',
     fontSize: '16px',
-    border: 'none',
     cursor: 'pointer',
-    transition: 'background-color 0.2s'
+    transition: 'all 0.3s ease',
+    boxShadow: '0 0 20px rgba(102, 126, 234, 0.25)'
   }
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Clock, ExternalLink, FileImage, FileText, File } from 'lucide-react';
 import { fileAPI } from '../services/api';
 import FileViewer from './FileViewer';
+import './RecentFiles.css';
 
 const RecentFiles = ({ refreshTrigger }) => {
   const [recentFiles, setRecentFiles] = useState({ today: [], yesterday: [], lastWeek: [] });
@@ -86,7 +87,7 @@ const RecentFiles = ({ refreshTrigger }) => {
 
   const hasFiles = recentFiles.today.length > 0 || recentFiles.yesterday.length > 0 || recentFiles.lastWeek.length > 0;
 
-  if (loading) return <div>Loading recent files...</div>;
+  if (loading) return <div style={{color: 'white'}}>Loading recent files...</div>;
 
   return (
     <div style={styles.container}>
@@ -117,7 +118,7 @@ const RecentFiles = ({ refreshTrigger }) => {
           {renderSection('Last Week', recentFiles.lastWeek)}
           
           {searchQuery && filterFiles([...recentFiles.today, ...recentFiles.yesterday, ...recentFiles.lastWeek]).length === 0 && (
-            <p style={{textAlign: 'center', color: '#718096', padding: '40px'}}>No matching recent files found.</p>
+            <p style={{textAlign: 'center', color: 'rgba(255, 255, 255, 0.7)', padding: '40px'}}>No matching recent files found.</p>
           )}
         </div>
       )}
@@ -134,7 +135,8 @@ const styles = {
   container: {
     maxWidth: '1000px',
     margin: '0 auto',
-    paddingBottom: '40px'
+    paddingBottom: '40px',
+    color: '#ffffff'
   },
   header: {
     display: 'flex',
@@ -147,7 +149,7 @@ const styles = {
   title: {
     fontSize: '24px',
     fontWeight: '700',
-    color: '#2d3748',
+    color: '#ffffff',
     margin: 0
   },
   searchContainer: {
@@ -163,17 +165,17 @@ const styles = {
   searchInput: {
     width: '100%',
     padding: '10px 10px 10px 36px',
-    borderRadius: '6px',
-    border: '1px solid #e2e8f0',
-    fontSize: '14px'
+    borderRadius: '10px',
+    border: '1px solid rgba(255, 255, 255, 0.16)',
+    fontSize: '14px',
+    background: 'rgba(255, 255, 255, 0.08)',
+    color: '#ffffff',
+    backdropFilter: 'blur(8px)'
   },
   emptyState: {
     textAlign: 'center',
     padding: '80px 20px',
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    border: '1px dashed #cbd5e0',
-    color: '#718096'
+    color: 'rgba(255, 255, 255, 0.7)'
   },
   content: {
     display: 'flex',
@@ -188,34 +190,37 @@ const styles = {
   sectionTitle: {
     fontSize: '18px',
     fontWeight: '600',
-    color: '#4a5568',
+    color: '#ffffff',
     margin: 0,
     paddingBottom: '8px',
-    borderBottom: '2px solid #edf2f7'
+    borderBottom: '1px solid rgba(255, 255, 255, 0.12)'
   },
   fileList: {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-    border: '1px solid #edf2f7',
-    overflow: 'hidden'
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px'
   },
   fileRow: {
     display: 'flex',
     alignItems: 'center',
-    padding: '16px 20px',
-    borderBottom: '1px solid #edf2f7',
+    padding: '14px 16px',
+    background: 'rgba(255, 255, 255, 0.07)',
+    backdropFilter: 'blur(8px)',
+    border: '1px solid rgba(255, 255, 255, 0.12)',
+    borderRadius: '12px',
     gap: '16px',
-    transition: 'background-color 0.2s'
+    transition: 'all 0.3s ease',
+    cursor: 'pointer'
   },
   fileIcon: {
     width: '40px',
     height: '40px',
-    backgroundColor: '#f7fafc',
-    borderRadius: '8px',
+    background: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: '10px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    border: '1px solid rgba(255, 255, 255, 0.12)'
   },
   fileDetails: {
     flex: 1,
@@ -225,17 +230,17 @@ const styles = {
   },
   fileName: {
     fontWeight: '500',
-    color: '#2d3748',
+    color: '#ffffff',
     fontSize: '14px'
   },
   fileSize: {
     fontSize: '12px',
-    color: '#a0aec0'
+    color: 'rgba(255, 255, 255, 0.55)'
   },
   accessTime: {
     display: 'flex',
     alignItems: 'center',
-    color: '#718096',
+    color: 'rgba(255, 255, 255, 0.65)',
     fontSize: '13px',
     width: '120px'
   },
@@ -244,14 +249,15 @@ const styles = {
     alignItems: 'center',
     gap: '6px',
     padding: '8px 16px',
-    backgroundColor: '#edf2f7',
-    color: '#4a5568',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    color: 'white',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: '10px',
     fontSize: '13px',
     fontWeight: '500',
     cursor: 'pointer',
-    transition: 'background-color 0.2s'
+    transition: 'all 0.3s ease',
+    boxShadow: '0 0 20px rgba(102, 126, 234, 0.22)'
   }
 };
 

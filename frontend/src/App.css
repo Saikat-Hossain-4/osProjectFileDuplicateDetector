@@ -1,50 +1,187 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  color: #ffffff;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(118, 75, 162, 0.20), transparent 30%),
+    radial-gradient(circle at top right, rgba(102, 126, 234, 0.18), transparent 34%),
+    radial-gradient(circle at bottom center, rgba(245, 87, 108, 0.10), transparent 28%),
+    linear-gradient(135deg, #050816 0%, #0b1020 45%, #130f2a 100%);
+  position: relative;
+  isolation: isolate;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  background: radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.15), transparent 25%), radial-gradient(circle at 80% 10%, rgba(240, 147, 251, 0.10), transparent 22%);
+  filter: blur(24px);
+}
+
+body::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02));
+}
+
+#root,
 .App {
   min-height: 100vh;
+}
+
+.App {
   display: flex;
   flex-direction: column;
+  background: transparent;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8aa0ff 0%, #a66edb 100%);
+}
+
+::selection {
+  background: rgba(102, 126, 234, 0.35);
+  color: #ffffff;
+}
+
+/* Loading animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(102, 126, 234, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.18);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 22px rgba(102, 126, 234, 0.15);
 }
 
 /* Utility classes */
 .btn {
   padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  backdrop-filter: blur(12px);
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  box-shadow: 0 10px 26px rgba(102, 126, 234, 0.26);
 }
+
 .btn-primary:hover {
-  background-color: #5a67d8;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.45);
 }
 
 .btn-danger {
-  background-color: var(--danger);
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
   color: white;
+  box-shadow: 0 10px 26px rgba(245, 87, 108, 0.24);
 }
+
 .btn-danger:hover {
-  background-color: #c53030;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(245, 87, 108, 0.38);
 }
 
 .btn-success {
-  background-color: var(--success);
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
   color: white;
+  box-shadow: 0 10px 26px rgba(72, 187, 120, 0.24);
 }
+
 .btn-success:hover {
-  background-color: #38a169;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(72, 187, 120, 0.38);
 }
 
 .btn-outline {
-  background-color: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-dark);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: white;
 }
+
 .btn-outline:hover {
-  background-color: #f7fafc;
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
 }

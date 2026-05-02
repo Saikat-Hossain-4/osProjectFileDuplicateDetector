@@ -5,6 +5,7 @@ import YourFiles from './YourFiles';
 import DuplicateFiles from './DuplicateFiles';
 import RecentFiles from './RecentFiles';
 import UploadModal from './UploadModal';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [activePage, setActivePage] = useState('dashboard');
@@ -36,14 +37,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="dashboard">
       <Sidebar 
         activePage={activePage} 
         setActivePage={setActivePage} 
         onOpenUpload={() => setIsUploadModalOpen(true)}
       />
       
-      <div style={styles.mainContent}>
+      <div className="main-content">
         {renderContent()}
       </div>
 
@@ -55,21 +56,6 @@ const Dashboard = () => {
       )}
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    height: '100vh',
-    overflow: 'hidden',
-    backgroundColor: '#f5f5f5'
-  },
-  mainContent: {
-    flex: 1,
-    overflowY: 'auto',
-    padding: '30px',
-    position: 'relative'
-  }
 };
 
 export default Dashboard;

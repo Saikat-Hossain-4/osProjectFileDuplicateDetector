@@ -1,0 +1,101 @@
+.file-viewer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.file-viewer-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.file-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.file-viewer-header h3 {
+  color: white;
+  font-size: 18px;
+}
+
+.file-viewer-header button {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.file-viewer-header button:hover {
+  color: white;
+  transform: rotate(90deg);
+}
+
+.file-viewer-body {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-viewer-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.file-viewer-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.word-viewer {
+  text-align: center;
+  padding: 40px;
+}
+
+.word-viewer p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 20px;
+}
+
+.word-viewer button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.word-viewer button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}

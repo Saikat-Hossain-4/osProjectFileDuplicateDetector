@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Trash2, ExternalLink, File, Copy, AlertTriangle, Download } from 'lucide-react';
 import { fileAPI } from '../services/api';
 import FileViewer from './FileViewer';
+import './DuplicateFiles.css';
 
 const DuplicateFiles = ({ refreshTrigger, onUpdate }) => {
   const [duplicateGroups, setDuplicateGroups] = useState([]);
@@ -86,7 +87,7 @@ const DuplicateFiles = ({ refreshTrigger, onUpdate }) => {
     return (totalWasted / (1024 * 1024)).toFixed(2);
   };
 
-  if (loading) return <div>Scanning for duplicates...</div>;
+  if (loading) return <div style={{color: 'white'}}>Scanning for duplicates...</div>;
 
   return (
     <div style={styles.container}>
@@ -185,7 +186,8 @@ const styles = {
   container: {
     maxWidth: '1000px',
     margin: '0 auto',
-    paddingBottom: '40px'
+    paddingBottom: '40px',
+    color: '#ffffff'
   },
   header: {
     display: 'flex',
@@ -198,12 +200,12 @@ const styles = {
   title: {
     fontSize: '24px',
     fontWeight: '700',
-    color: '#2d3748',
+    color: '#ffffff',
     margin: 0,
     marginBottom: '8px'
   },
   subtitle: {
-    color: '#718096',
+    color: 'rgba(255, 255, 255, 0.7)',
     fontSize: '14px',
     margin: 0
   },
@@ -220,17 +222,17 @@ const styles = {
   searchInput: {
     width: '100%',
     padding: '10px 10px 10px 36px',
-    borderRadius: '6px',
-    border: '1px solid #e2e8f0',
-    fontSize: '14px'
+    borderRadius: '10px',
+    border: '1px solid rgba(255, 255, 255, 0.16)',
+    fontSize: '14px',
+    background: 'rgba(255, 255, 255, 0.08)',
+    color: '#ffffff',
+    backdropFilter: 'blur(8px)'
   },
   emptyState: {
     textAlign: 'center',
     padding: '60px',
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    border: '1px dashed #cbd5e0',
-    color: '#718096'
+    color: 'rgba(255, 255, 255, 0.7)'
   },
   emptyIcon: {
     marginBottom: '16px'
@@ -241,19 +243,17 @@ const styles = {
     gap: '24px'
   },
   groupCard: {
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-    border: '1px solid #edf2f7',
-    overflow: 'hidden'
+    marginBottom: '16px',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    border: '1px solid rgba(255, 255, 255, 0.08)'
   },
   groupHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '16px 20px',
-    backgroundColor: '#fffaf0',
-    borderBottom: '1px solid #edf2f7'
+    borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
   },
   groupInfo: {
     display: 'flex',
@@ -262,19 +262,19 @@ const styles = {
   },
   groupTitle: {
     fontWeight: '600',
-    color: '#c05621'
+    color: '#ffffff'
   },
   badge: {
-    backgroundColor: '#feebc8',
-    color: '#c05621',
+    background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    color: 'white',
     padding: '4px 10px',
-    borderRadius: '12px',
+    borderRadius: '999px',
     fontSize: '12px',
     fontWeight: '700'
   },
   groupSize: {
     fontSize: '13px',
-    color: '#718096',
+    color: 'rgba(255, 255, 255, 0.65)',
     fontWeight: '500'
   },
   fileList: {
@@ -284,18 +284,24 @@ const styles = {
   fileRow: {
     display: 'flex',
     alignItems: 'center',
-    padding: '16px 20px',
-    borderBottom: '1px solid #edf2f7',
-    gap: '16px'
+    padding: '14px 16px',
+    background: 'rgba(255, 255, 255, 0.07)',
+    backdropFilter: 'blur(8px)',
+    border: '1px solid rgba(255, 255, 255, 0.12)',
+    borderRadius: '12px',
+    gap: '16px',
+    transition: 'all 0.3s ease',
+    marginBottom: '8px'
   },
   fileIcon: {
     width: '40px',
     height: '40px',
-    backgroundColor: '#f7fafc',
-    borderRadius: '8px',
+    background: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: '10px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    border: '1px solid rgba(255, 255, 255, 0.12)'
   },
   fileDetails: {
     flex: 1,
@@ -305,20 +311,20 @@ const styles = {
   },
   fileName: {
     fontWeight: '500',
-    color: '#2d3748',
+    color: '#ffffff',
     fontSize: '14px'
   },
   uploadDate: {
     fontSize: '12px',
-    color: '#a0aec0'
+    color: 'rgba(255, 255, 255, 0.55)'
   },
   statusBadge: {
     padding: '4px 8px',
-    borderRadius: '4px',
+    borderRadius: '999px',
     fontSize: '12px',
     fontWeight: '500',
-    backgroundColor: '#edf2f7',
-    color: '#4a5568',
+    background: 'rgba(255, 255, 255, 0.08)',
+    color: 'rgba(255, 255, 255, 0.8)',
     width: '120px',
     textAlign: 'center'
   },
@@ -327,16 +333,16 @@ const styles = {
     gap: '8px'
   },
   actionBtn: {
-    background: 'none',
-    border: 'none',
+    background: 'rgba(255, 255, 255, 0.08)',
+    border: '1px solid rgba(255, 255, 255, 0.12)',
     padding: '8px',
     cursor: 'pointer',
-    color: '#718096',
-    borderRadius: '6px',
+    color: 'rgba(255, 255, 255, 0.75)',
+    borderRadius: '8px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'background-color 0.2s',
+    transition: 'all 0.3s ease'
   }
 };
 
