@@ -277,7 +277,7 @@ Glow Effects: Box-shadow pulses for interactive elements
 
 ✅ CORS Configuration: Restricted to allowed origins
 
-🚀 Deployment
+## 🚀 Deployment
 Deploy Backend (Render/Heroku)
 bash
 # Create a production build
@@ -292,20 +292,22 @@ npm run build
 
 # Deploy build folder to hosting service
 # Configure environment variables on hosting platform
-📊 Performance Metrics
+## 📊 Performance Metrics
 Metric	Value
 First Contentful Paint	< 1.5s
 Time to Interactive	< 2.5s
 Lighthouse Score	95+
 Bundle Size	< 200KB (gzipped)
 API Response Time	< 100ms (avg)
-🐛 Known Issues & Solutions
+
+## 🐛 Known Issues & Solutions
 Issue	Solution
 Large file upload timeout	Increase timeout in axios config
 CORS errors in production	Configure CORS properly in backend
 Session expiration	Implement refresh tokens
 Slow search with many files	Add MongoDB indexes on search fields
-🔮 Future Roadmap
+
+## 🔮 Future Roadmap
 Dark/Light Theme Toggle - User preference persistence
 
 File Sharing - Generate shareable links with expiry
@@ -324,7 +326,7 @@ Mobile App - React Native version
 
 AI Integration - Automatic file tagging and categorization
 
-🤝 Contributing
+## 🤝 Contributing
 We welcome contributions! Please follow these steps:
 
 Fork the repository
@@ -346,10 +348,10 @@ Update documentation for major changes
 
 Add tests for new features
 
-📝 License
+## 📝 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-👏 Acknowledgments
+##👏 Acknowledgments
 Cloudinary for excellent cloud storage API
 
 MongoDB Atlas for reliable database service
@@ -358,17 +360,17 @@ React Team for amazing frontend framework
 
 Open Source Community for inspiration
 
-📞 Support & Contact
+## 📞 Support & Contact
 Issues: GitHub Issues
 
 Email: ytsaikatyt123@gmail.com
 
 
-<div align="center">
+
 Made with ❤️ by Saikat Hossain
 
 ⭐ Star this repo if you find it useful!
 
 Report Bug • Request Feature
 
-</div> ```
+```
