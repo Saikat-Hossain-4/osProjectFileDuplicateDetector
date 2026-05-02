@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion'; // ADDED: framer-motion import
 import './LandingPage.css';
@@ -27,6 +27,7 @@ const cardHover = {
 
 function LandingPage() {
   const navigate = useNavigate();
+  const [isNavigating, setIsNavigating] = useState(false);
 
   useEffect(() => {
     // Check if user is already logged in
@@ -82,12 +83,20 @@ function LandingPage() {
     }
   ];
 
+  const handleNavigation = (path) => {
+    setIsNavigating(true);
+    setTimeout(() => {
+      setIsNavigating(false);
+      navigate(path);
+    }, 1200); // Wait 1.2s before navigating
+  };
+
   const handleGetStarted = () => {
-    navigate('/login');
+    handleNavigation('/login');
   };
 
   const handleLogin = () => {
-    navigate('/login');
+    handleNavigation('/login');
   };
 
   return (
@@ -391,6 +400,74 @@ function LandingPage() {
           <p>&copy; {new Date().getFullYear()} FileManager. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* Fullscreen Loading Animation */}
+      {isNavigating && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(11, 15, 26, 0.95)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 9999,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <div className="loader">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <style>{`
+            .loader {
+              display: flex;
+              gap: 12px;
+              justify-content: center;
+              align-items: center;
+            }
+            .loader span {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background: linear-gradient(135deg, #00d4ff, #8b5cf6);
+              animation: blob-bounce 1.4s infinite ease-in-out both;
+            }
+            .loader span:nth-child(1) {
+              animation-delay: -0.32s;
+            }
+            .loader span:nth-child(2) {
+              animation-delay: -0.16s;
+            }
+            @keyframes blob-bounce {
+              0%, 80%, 100% {
+                transform: scale(0.4) translateY(0);
+                opacity: 0.6;
+              }
+              40% {
+                transform: scale(1) translateY(-12px);
+                opacity: 1;
+              }
+            }
+          `}</style>
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            style={{ marginTop: '24px', color: 'white', fontSize: '20px', fontWeight: '500' }}
+          >
+            Taking you there...
+          </motion.p>
+        </motion.div>
+      )}
     </div>
   );
 }
